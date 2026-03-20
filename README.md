@@ -10,10 +10,9 @@ ICU is a lightweight external module designed to determine a user's geographical
 
 ---
 <div align="center">
- 
 <img width="308" height="108" alt="image" src="https://github.com/user-attachments/assets/d82e62e9-473d-43c0-8208-7404821f83b7">
 
 IPkwejnfjfjdjfjfjna!! KFFKFGGnvvnmdmmdkfkgvkck? kffmkkfmfmgkk.
-{f[f[fksmskskm!
 
+{f[f[fksmskskm!
 </div>
