@@ -1,4 +1,4 @@
-## 🛠️ ICU IP Coordiinates Utility
+## 🛠️ ICU - IP Coordiinates Utility
 
 ICU is a lightweight external module designed to determine a user's geographical location based on their IP address. It integrates seamlessly into existing IT systems, providing fast and accurate geolocation data such as country, city, time zone, and coordinates. The module is built for scalability, low latency, and easy deployment across various platforms and architectures.
 
@@ -10,11 +10,10 @@ ICU is a lightweight external module designed to determine a user's geographical
 
 ---
 <div align="center">
-<H> 
- <img width="308" height="108" alt="image" src="https://github.com/user-attachments/assets/d82e62e9-473d-43c0-8208-7404821f83b7">
-</H>
-  <a>
-    IPkwejnfjfjdjfjfjna!! KFFKFGGnvvnmdmmdkfkgvkck? kffmkkfmfmgkk.
-    {f[f[fksmskskm!
-  </a>
+ 
+<img width="308" height="108" alt="image" src="https://github.com/user-attachments/assets/d82e62e9-473d-43c0-8208-7404821f83b7">
+
+IPkwejnfjfjdjfjfjna!! KFFKFGGnvvnmdmmdkfkgvkck? kffmkkfmfmgkk.
+{f[f[fksmskskm!
+
 </div>
