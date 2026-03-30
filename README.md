@@ -7,12 +7,14 @@ The project solves the problem of quickly and reliably obtaining geodata without
 ---
 <div align="center">
 <img width="236" height="236" alt="image" src="https://github.com/user-attachments/assets/e3c94ca0-2b77-4e21-b789-8192d05167e3">
-<img width="236" height="236" alt="image" src="https://github.com/user-attachments/assets/e3e9c53a-444b-450c-9869-19dd7668f1e6">
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/5cc0de21-1eb0-439c-bafd-63d9529851d9" />
+
 </div>
 
 ---
 
 ## ✨ Features
+
 - Location detection by IP (country, city, coordinates, timezone)
 - Proxy headers support (X-Forwarded-For, X-Real-IP)
 - Flexible data sources: local GeoLite2 database or external APIs
