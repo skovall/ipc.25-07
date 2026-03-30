@@ -1,5 +1,5 @@
 <div align="center">
-<img width="200" height="200" alt="IMG_3121" src="https://github.com/user-attachments/assets/0c884d35-29f2-4558-a613-458550cb346e">
+<img width="250" height="250" alt="IMG_3121" src="https://github.com/user-attachments/assets/0c884d35-29f2-4558-a613-458550cb346e">
 </div>
 
 ## 🛠️ ICU - IP Coordiinates Utility
