@@ -6,8 +6,6 @@ The project solves the problem of quickly and reliably obtaining geodata without
 
 ---
 <div align="center">
-<img width="236" height="236" alt="image" src="https://github.com/user-attachments/assets/e3c94ca0-2b77-4e21-b789-8192d05167e3">
-<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/5cc0de21-1eb0-439c-bafd-63d9529851d9" />
 
 </div>
 
@@ -23,9 +21,7 @@ The project solves the problem of quickly and reliably obtaining geodata without
 - Easy integration with applications in any language
 
 <div align="center">
-<img width="308" height="108" alt="image" src="https://github.com/user-attachments/assets/d82e62e9-473d-43c0-8208-7404821f83b7">
-
-IPkwejnfjfjdjfjfjna!! KFFKFGGnvvnmdmmdkfkgvkck? kffmkkfmfmgkk.
+<img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/5cc0de21-1eb0-439c-bafd-63d9529851d9">
 
 {f[f[fksmskskm!
 </div>
