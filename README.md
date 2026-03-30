@@ -3,11 +3,11 @@
 </div>
 
 ## 🛠️ ICU - IP Coordiinates Utility
----
+
 ICU  is an external component (microservice) for automatic IP geolocation. It is designed as an independent service that can be easily integrated into any web application, CRM system, or analytics platform. The component returns structured location data: country, region, city, coordinates, and timezone.
 
 The project solves the problem of quickly and reliably obtaining geodata without the need to embed complex logic into the main application. It supports working with local databases (MaxMind) and external APIs, providing flexibility and compliance with privacy requirements.
----
+
 ## ✨ Features
 
 - Location detection by IP (country, city, coordinates, timezone)
