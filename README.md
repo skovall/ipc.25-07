@@ -18,9 +18,6 @@ The project solves the problem of quickly and reliably obtaining geodata without
 - Easy integration with applications in any language
 
 
-{f[f[fksmskskm!
-</div>
-
 ---
 
 *Дата начала разработки: февраль, 2026*
