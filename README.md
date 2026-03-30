@@ -1,6 +1,8 @@
 ## 🛠️ ICU - IP Coordiinates Utility
 
-ICU is a lightweight external module designed to determine a user's geographical location based on their IP address. It integrates seamlessly into existing IT systems, providing fast and accurate geolocation data such as country, city, time zone, and coordinates. The module is built for scalability, low latency, and easy deployment across various platforms and architectures.
+ICU  is an external component (microservice) for automatic IP geolocation. It is designed as an independent service that can be easily integrated into any web application, CRM system, or analytics platform. The component returns structured location data: country, region, city, coordinates, and timezone.
+
+The project solves the problem of quickly and reliably obtaining geodata without the need to embed complex logic into the main application. It supports working with local databases (MaxMind) and external APIs, providing flexibility and compliance with privacy requirements.
 
 ---
 <div align="center">
@@ -9,6 +11,16 @@ ICU is a lightweight external module designed to determine a user's geographical
 </div>
 
 ---
+
+## ✨ Features
+|-------------|
+| Location detection by IP (country, city, coordinates, timezone) |
+| Proxy headers support (X-Forwarded-For, X-Real-IP) |
+| Flexible data sources: local GeoLite2 database or external APIs |
+| Result caching to reduce load |
+| REST API with JSON response |
+| Easy integration with applications in any language |
+
 <div align="center">
 <img width="308" height="108" alt="image" src="https://github.com/user-attachments/assets/d82e62e9-473d-43c0-8208-7404821f83b7">
 
