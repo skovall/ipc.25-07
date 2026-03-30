@@ -13,13 +13,12 @@ The project solves the problem of quickly and reliably obtaining geodata without
 ---
 
 ## ✨ Features
-|-------------|
-| Location detection by IP (country, city, coordinates, timezone) |
-| Proxy headers support (X-Forwarded-For, X-Real-IP) |
-| Flexible data sources: local GeoLite2 database or external APIs |
-| Result caching to reduce load |
-| REST API with JSON response |
-| Easy integration with applications in any language |
+- Location detection by IP (country, city, coordinates, timezone)
+- Proxy headers support (X-Forwarded-For, X-Real-IP)
+- Flexible data sources: local GeoLite2 database or external APIs
+- Result caching to reduce load
+- REST API with JSON response
+- Easy integration with applications in any language
 
 <div align="center">
 <img width="308" height="108" alt="image" src="https://github.com/user-attachments/assets/d82e62e9-473d-43c0-8208-7404821f83b7">
