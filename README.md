@@ -29,4 +29,3 @@ The project solves the problem of quickly and reliably obtaining geodata without
 Матюнина Юлия  
 Пивоварчук Дарья  
 Морозов Никита
-|
