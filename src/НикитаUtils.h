@@ -4,9 +4,9 @@
 #include <regex>
 class Utils{
 public:
-  static bool VlIPv4(const std::string& ip);
-  static bool VlIPv6(const std::string& ip);
-  static bool VlIP(const std::string& ip);
+  static bool VlIPv4(const std::string_view ip);
+  static bool VlIPv6(const std::string_view ip);
+  static bool VlIP(const std::string_view ip);
 };
 
 #endif 
