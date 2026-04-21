@@ -1,12 +1,13 @@
 #ifndef UTILS_H
 #define UTILS_H
-#include <string>
-#include <regex>
-class Utils{
+
+#include <string_view>
+
+class Utils {
 public:
-  static bool VlIPv4(const std::string_view ip);
-  static bool VlIPv6(const std::string_view ip);
-  static bool VlIP(const std::string_view ip);
+    static bool VlIPv4(const std::string_view ip) noexcept;
+    static bool VlIPv6(const std::string_view ip) noexcept;
+    static bool VlIP(const std::string_view ip) noexcept;
 };
 
-#endif 
+#endif // UTILS_H
