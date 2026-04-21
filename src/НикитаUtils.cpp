@@ -22,6 +22,6 @@ bool Utils::VlIPv6(const std::string& ip) {
     return std::regex_match(ip, ipv6_reg);
 }
 
-bool Utils::VlIP(const std::string& ip) {
+bool Utils::VlIP(const std::string_view ip) {
     return VlIPv4(ip) || VlIPv6(ip);
 }
