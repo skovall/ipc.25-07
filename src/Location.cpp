@@ -1,6 +1,6 @@
-// ДашаLocation.cpp
+// Location.cpp
 
-#include "ДашаLocation.h"
+#include "Location.h"
 #include <iomanip> //для точного количества знаков после запятой
 
 void GeoLocationData::display() const {
@@ -11,7 +11,7 @@ void GeoLocationData::display() const {
     std::cout << CYAN << "  Регион       : " << WHITE << regionName << RESET << std::endl;
     std::cout << CYAN << "  Город        : " << WHITE << city << RESET << std::endl;
     std::cout << CYAN << "  Почтовый индекс  : " << WHITE << zip << RESET << std::endl;
-    std::cout << CYAN << "  Широта/Долгота      : " << WHITE << std::fixed << std::setprecision(6) << lat << ", " << std::fixed << std::setprecision(6) << lon << RESET << std::endl; //6 знаков после запятой
+    std::cout << CYAN << "  Широта/Долгота      : " << WHITE << std::fixed << std::setprecision(6) << lat << ", " << std::setprecision(6) << lon << RESET << std::endl; //6 знаков после запятой
     std::cout << CYAN << "  Часовой пояс : " << WHITE << timezone << RESET << std::endl;
     std::cout << CYAN << "  Провайдер (ISP - Internet Service Provider)          : " << WHITE << isp << RESET << std::endl;
     std::cout << CYAN << "  Организация : " << WHITE << org << RESET << std::endl;
@@ -40,7 +40,7 @@ void to_json(nlohmann::json& j, const GeoLocationData& p) {
         {"org", p.org},
         {"as", p.as},
         {"status", p.status},
-        {"message", p.message} 
+        {"message", p.message}, 
         {"mobile", p.mobile},
         {"proxy", p.proxy},
         {"hosting", p.hosting}
@@ -48,27 +48,21 @@ void to_json(nlohmann::json& j, const GeoLocationData& p) {
 }
 //Конвертация данных обратно из JSON 
 void from_json(const nlohmann::json& j, GeoLocationData& p) {
-    j.at("ip").get_to(p.ip);
-    j.at("country").get_to(p.country);
-    j.at("countryCode").get_to(p.countryCode);
-    j.at("regionName").get_to(p.regionName);
-    j.at("city").get_to(p.city);
-    j.at("zip").get_to(p.zip);
-    j.at("lat").get_to(p.lat);
-    j.at("lon").get_to(p.lon);
-    j.at("timezone").get_to(p.timezone);
-    j.at("isp").get_to(p.isp);
-    j.at("org").get_to(p.org);
-    j.at("as").get_to(p.as);
-    j.at("status").get_to(p.status);
-    // Так как не всегда будет информация "message"
-    if (j.find("message") != j.end() && !j.at("message").is_null()) {
-        j.at("message").get_to(p.message);
-    }
-    else {
-        p.message = "NONE"; 
-    }
-    if (j.find("mobile") != j.end() && !j.at("mobile").is_null()) { p.mobile = j.at("mobile"); }
-    if (j.find("proxy") != j.end() && !j.at("proxy").is_null()) { p.proxy = j.at("proxy"); }
-    if (j.find("hosting") != j.end() && !j.at("hosting").is_null()) { p.hosting = j.at("hosting"); }
+    p.ip = j.value("ip", "");
+    p.country = j.value("country", "");
+    p.countryCode = j.value("countryCode", "");
+    p.regionName = j.value("regionName", "");
+    p.city = j.value("city", "");
+    p.zip = j.value("zip", "");
+    p.lat = j.value("lat", 0.0);
+    p.lon = j.value("lon", 0.0);
+    p.timezone = j.value("timezone", "");
+    p.isp = j.value("isp", "");
+    p.org = j.value("org", "");
+    p.as = j.value("as", "");
+    p.status = j.value("status", "error");
+    p.message = j.value("message", "NONE");
+    p.mobile = j.value("mobile", false);
+    p.proxy = j.value("proxy", false);
+    p.hosting = j.value("hosting", false);
 }
