@@ -11,3 +11,101 @@ https://www.boost.org/library/latest/test/
 Тебе следует закончить Utils, разобраться в целом том, как работать с юнит-тестами,
 а после дождаться готового кода хоть от кого-нибудь из ребят и начать работу над тестами.
 Пиши мне, если появятся вопросы касаемо реализации.
+
+
+//google tests; создать новый проект в VS и выбрать шаблон Google Test Project (для проверки работы юнита)
+#include "pch.h"  // или #include <gtest/gtest.h> если нет pch
+#include "Utils.h"
+
+// Группа тестов для IPv4
+class IPv4Tests : public ::testing::Test {
+protected:
+    void SetUp() override {
+       
+    }
+    
+    void TearDown() override {
+        
+    }
+};
+
+// Тест 1: IPv4 адреса
+TEST_F(IPv4Tests, ValidIPv4Addresses) {
+    EXPECT_TRUE(Utils::VlIPv4("192.168.1.1"));
+    EXPECT_TRUE(Utils::VlIPv4("0.0.0.0"));
+    EXPECT_TRUE(Utils::VlIPv4("255.255.255.255"));
+    EXPECT_TRUE(Utils::VlIPv4("127.0.0.1"));
+    EXPECT_TRUE(Utils::VlIPv4("10.0.0.1"));
+    EXPECT_TRUE(Utils::VlIPv4("172.16.0.1"));
+    EXPECT_TRUE(Utils::VlIPv4("8.8.8.8"));
+}
+
+// Тест 2: Граничные значения IPv4
+TEST_F(IPv4Tests, IPv4BoundaryValues) {
+    EXPECT_TRUE(Utils::VlIPv4("0.0.0.0"));        // минимум
+    EXPECT_TRUE(Utils::VlIPv4("255.255.255.255")); // максимум
+    EXPECT_TRUE(Utils::VlIPv4("0.0.0.255"));      // последний октет максимум
+    EXPECT_TRUE(Utils::VlIPv4("255.0.0.0"));      // первый октет максимум
+}
+
+// Тест 3: IPv4 адреса (не валид)
+TEST_F(IPv4Tests, InvalidIPv4Addresses) {
+    EXPECT_FALSE(Utils::VlIPv4("256.1.1.1"));     
+    EXPECT_FALSE(Utils::VlIPv4("192.168.1"));      
+    EXPECT_FALSE(Utils::VlIPv4("192.168.1.1.1"));  
+    EXPECT_FALSE(Utils::VlIPv4("192.168.1.999"));  
+    EXPECT_FALSE(Utils::VlIPv4("-1.0.0.0"));       
+    EXPECT_FALSE(Utils::VlIPv4("abc.def.ghi.jkl")); 
+    EXPECT_FALSE(Utils::VlIPv4(""));                
+    EXPECT_FALSE(Utils::VlIPv4("   "));             
+    EXPECT_FALSE(Utils::VlIPv4("192.168.1.1 "));    
+    EXPECT_FALSE(Utils::VlIPv4(" 192.168.1.1"));    
+}
+
+// Тест 4: IPv6
+TEST_F(IPv4Tests, ValidIPv6Addresses) {  
+    EXPECT_TRUE(Utils::VlIPv6("2001:0db8:85a3:0000:0000:8a2e:0370:7334"));
+    EXPECT_TRUE(Utils::VlIPv6("::1"));
+    EXPECT_TRUE(Utils::VlIPv6("::"));
+    EXPECT_TRUE(Utils::VlIPv6("2001::7334"));
+    EXPECT_TRUE(Utils::VlIPv6("fe80::1"));
+    EXPECT_TRUE(Utils::VlIPv6("ff02::1"));
+}
+
+// Тест 5: IPv6 (не валид)
+TEST_F(IPv4Tests, InvalidIPv6Addresses) {
+    EXPECT_FALSE(Utils::VlIPv6("2001:0db8:85a3::8a2e:0370:7334:1234")); // слишком много
+    EXPECT_FALSE(Utils::VlIPv6("gggg::1"));     
+    EXPECT_FALSE(Utils::VlIPv6("192.168.1.1")); 
+    EXPECT_FALSE(Utils::VlIPv6(":::1"));        
+    EXPECT_FALSE(Utils::VlIPv6(":::"));         
+}
+
+// Группа тестов для общей функции VlIP
+TEST(GeneralIPValidation, MixedAddresses) {
+    EXPECT_TRUE(Utils::VlIP("192.168.1.1"));     // IPv4 должен работать
+    EXPECT_TRUE(Utils::VlIP("2001:0db8::1"));    // IPv6 должен работать
+    EXPECT_FALSE(Utils::VlIP("invalid"));        // невалидный не должен работать
+    EXPECT_FALSE(Utils::VlIP("256.1.1.1"));      // невалидный IPv4
+    EXPECT_FALSE(Utils::VlIP("gggg::1"));        // невалидный IPv6
+}
+
+// Параметризованные тесты 
+class ParameterizedIPTests : public ::testing::TestWithParam<std::tuple<std::string, bool>> {};
+
+TEST_P(ParameterizedIPTests, ValidateIP) {
+    auto [ip, expected] = GetParam();
+    EXPECT_EQ(Utils::VlIP(ip), expected);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    AllIPs,
+    ParameterizedIPTests,
+    ::testing::Values(
+        std::make_tuple("192.168.1.1", true),
+        std::make_tuple("256.1.1.1", false),
+        std::make_tuple("::1", true),
+        std::make_tuple("gggg::1", false),
+        std::make_tuple("", false)
+    )
+);
