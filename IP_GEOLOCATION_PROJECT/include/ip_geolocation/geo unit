@@ -12,9 +12,7 @@
 using namespace ip_geolocation;
 using namespace testing;
 
-// ============================================================
 // Моки для внешних зависимостей
-// ============================================================
 
 class MockGeoLocationService : public GeoLocationService {
 public:
@@ -26,9 +24,7 @@ public:
     MOCK_METHOD(void, clearCache, (), (override));
 };
 
-// ============================================================
 // Фикстура для GeoLocation
-// ============================================================
 
 class GeoLocationTest : public ::testing::Test {
 protected:
@@ -119,9 +115,7 @@ TEST_F(GeoLocationTest, MoveConstructor_MovesCorrectly) {
     EXPECT_TRUE(original.ip.empty()); // moved-from state
 }
 
-// ============================================================
 // Тесты для isValidIP
-// ============================================================
 
 class IsValidIPTest : public ::testing::TestWithParam<std::tuple<std::string, bool>> {};
 
@@ -167,9 +161,7 @@ INSTANTIATE_TEST_SUITE_P(
     )
 );
 
-// ============================================================
 // Тесты для GeoLocationService с реальными вызовами
-// ============================================================
 
 class GeoLocationServiceTest : public ::testing::Test {
 protected:
@@ -307,9 +299,7 @@ TEST_F(GeoLocationServiceTest, GetLocation_PublicIP_ReturnsGeographicData) {
     }
 }
 
-// ============================================================
 // Асинхронные тесты
-// ============================================================
 
 TEST_F(GeoLocationServiceTest, GetLocationAsync_CallbackExecutes) {
     std::promise<GeoLocation> promise;
@@ -392,9 +382,7 @@ TEST_F(GeoLocationServiceTest, GetLocationAsync_ThreadSafe) {
     EXPECT_EQ(completed, num_threads);
 }
 
-// ============================================================
 // Тесты кэширования
-// ============================================================
 
 TEST_F(GeoLocationServiceTest, ClearCache_ShouldNotThrow) {
     EXPECT_NO_THROW(service->clearCache());
@@ -425,9 +413,7 @@ TEST_F(GeoLocationServiceTest, IsAvailable_ReturnsBool) {
     EXPECT_EQ(service->isAvailable(), available);
 }
 
-// ============================================================
 // Тесты для getCurrentIP
-// ============================================================
 
 TEST(GetCurrentIPTest, ReturnsNonEmptyString) {
     std::string current_ip = getCurrentIP();
@@ -461,9 +447,7 @@ TEST(GetCurrentIPTest, IsConsistent) {
     EXPECT_EQ(first, second);
 }
 
-// ============================================================
 // Интеграционные тесты с файловой системой
-// ============================================================
 
 class GeoLocationServiceFileTest : public ::testing::Test {
 protected:
@@ -486,9 +470,7 @@ TEST_F(GeoLocationServiceFileTest, SetDatabasePath_WithRealDB_Works) {
     }
 }
 
-// ============================================================
 // Тесты производительности
-// ============================================================
 
 TEST_F(GeoLocationServiceTest, GetLocation_Performance_Under100ms) {
     auto start = std::chrono::high_resolution_clock::now();
@@ -513,9 +495,7 @@ TEST_F(GeoLocationServiceTest, GetLocation_Cached_PerformanceUnder10ms) {
     EXPECT_LT(duration.count(), 10) << "Cached lookup took " << duration.count() << "ms";
 }
 
-// ============================================================
 // Тесты на устойчивость к ошибкам
-// ============================================================
 
 TEST_F(GeoLocationServiceTest, ConcurrentAccess_IsThreadSafe) {
     const int num_calls = 100;
@@ -544,9 +524,7 @@ TEST_F(GeoLocationServiceTest, LongStringIP_HandlesGracefully) {
     EXPECT_FALSE(result.error_message.empty());
 }
 
-// ============================================================
 // Main function
-// ============================================================
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleMock(&argc, argv);
