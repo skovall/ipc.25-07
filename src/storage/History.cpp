@@ -69,3 +69,24 @@ void History::clear() {
 const std::vector<GeoLocationData>& History::entries() const {
     return entries_;
 }
+
+void History::display() const {
+    using namespace TerminalDisplay;
+
+    std::cout << BOLD << BRIGHT_CYAN;
+    std::cout << "\n=== HISTORY ===\n";
+    std::cout << RESET;
+
+    if (entries_.empty()) {
+        std::cout << BRIGHT_YELLOW << "History is empty\n" << RESET;
+        return;
+    }
+
+    for (const auto& entry : entries_) {
+        entry.display();
+    }
+}
+
+void History::setMaxEntries(size_t max_entries) {
+    max_entries_ = max_entries;
+}
