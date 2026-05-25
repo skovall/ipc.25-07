@@ -36,3 +36,20 @@ bool History::load() {
         return false;
     }
 }
+
+bool History::save() const {
+    std::ofstream file(file_name_);
+
+    if (!file.is_open()) {
+        return false;
+    }
+
+    try {
+        json j = entries_;
+        file << std::setw(4) << j;
+        return true;
+    }
+    catch (...) {
+        return false;
+    }
+}
