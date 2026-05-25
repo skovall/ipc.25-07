@@ -3,7 +3,10 @@
 #include <stdexcept>
 #include <mutex>
 
-// Глобальная инициализация libcurl (один раз для всей программы)
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 static std::once_flag curl_global_init_flag;
 
 HttpRequest::HttpRequest()
@@ -13,7 +16,6 @@ HttpRequest::HttpRequest()
     , user_agent_("Mozilla/5.0 (compatible; HttpRequest/1.0)")
     , last_http_code_(0)
 {
-    // Инициализируем глобальное состояние libcurl (безопасно для многопоточности)
     std::call_once(curl_global_init_flag, []() {
         CURLcode res = curl_global_init(CURL_GLOBAL_DEFAULT);
         if (res != CURLE_OK) {
@@ -27,23 +29,29 @@ HttpRequest::HttpRequest()
         throw std::runtime_error("curl_easy_init() failed");
     }
 
-    // Общие настройки
     curl_easy_setopt(curl_handle_, CURLOPT_WRITEFUNCTION, writeCallback);
     curl_easy_setopt(curl_handle_, CURLOPT_WRITEDATA, &response_buffer_);
-    curl_easy_setopt(curl_handle_, CURLOPT_FOLLOWLOCATION, 1L);      // следовать редиректам
-    curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYPEER, 1L);      // ВКЛЮЧАЕМ проверку сертификатов (безопасно)
-    curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYHOST, 2L);      // проверяем имя хоста
+    curl_easy_setopt(curl_handle_, CURLOPT_FOLLOWLOCATION, 1L);
+    
+#ifdef _WIN32
+    // Используем системное хранилище сертификатов Windows
+    curl_easy_setopt(curl_handle_, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
+    curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYPEER, 1L);
+    curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYHOST, 2L);
+#else
+    curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYPEER, 1L);
+    curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYHOST, 2L);
+#endif
+    
     curl_easy_setopt(curl_handle_, CURLOPT_TIMEOUT, timeout_seconds_);
     curl_easy_setopt(curl_handle_, CURLOPT_USERAGENT, user_agent_.c_str());
-    curl_easy_setopt(curl_handle_, CURLOPT_ACCEPT_ENCODING, "");      // авто-распаковка сжатых ответов
+    curl_easy_setopt(curl_handle_, CURLOPT_ACCEPT_ENCODING, "");
 }
 
 HttpRequest::~HttpRequest() {
     if (curl_handle_) {
         curl_easy_cleanup(curl_handle_);
     }
-    // curl_global_cleanup() вызывать не нужно — она должна быть вызвана в конце main,
-    // но мы её опускаем, т.к. она не обязательна (современные libcurl сами очищают при выгрузке)
 }
 
 void HttpRequest::setVerbose(bool verbose) {
@@ -77,15 +85,9 @@ std::string HttpRequest::get(const std::string& url) {
                                  std::string(curl_easy_strerror(res)));
     }
 
-    // Получаем HTTP-статус код
     long http_code = 0;
     curl_easy_getinfo(curl_handle_, CURLINFO_RESPONSE_CODE, &http_code);
     last_http_code_ = http_code;
-
-    if (http_code >= 400) {
-        // Сервер вернул ошибку, но мы всё равно возвращаем тело (можно и исключение бросить)
-        // Для простоты просто сохраняем код, но не бросаем исключение.
-    }
 
     return response_buffer_;
 }
