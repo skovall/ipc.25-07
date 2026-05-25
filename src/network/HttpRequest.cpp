@@ -19,8 +19,7 @@ HttpRequest::HttpRequest()
     std::call_once(curl_global_init_flag, []() {
         CURLcode res = curl_global_init(CURL_GLOBAL_DEFAULT);
         if (res != CURLE_OK) {
-            throw std::runtime_error("curl_global_init() failed: " +
-                                     std::string(curl_easy_strerror(res)));
+            throw std::runtime_error("curl_global_init() failed: " + std::string(curl_easy_strerror(res)));
         }
     });
 
@@ -34,7 +33,6 @@ HttpRequest::HttpRequest()
     curl_easy_setopt(curl_handle_, CURLOPT_FOLLOWLOCATION, 1L);
     
 #ifdef _WIN32
-    // Используем системное хранилище сертификатов Windows
     curl_easy_setopt(curl_handle_, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
     curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYPEER, 1L);
     curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYHOST, 2L);
@@ -81,8 +79,7 @@ std::string HttpRequest::get(const std::string& url) {
 
     CURLcode res = curl_easy_perform(curl_handle_);
     if (res != CURLE_OK) {
-        throw std::runtime_error("CURL error: " +
-                                 std::string(curl_easy_strerror(res)));
+        throw std::runtime_error("CURL error: " + std::string(curl_easy_strerror(res)));
     }
 
     long http_code = 0;
