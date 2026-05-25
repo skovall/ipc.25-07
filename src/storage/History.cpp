@@ -53,3 +53,19 @@ bool History::save() const {
         return false;
     }
 }
+
+void History::addEntry(const GeoLocationData& data) {
+    entries_.push_back(data);
+
+    if (entries_.size() > max_entries_) {
+        entries_.erase(entries_.begin());
+    }
+}
+
+void History::clear() {
+    entries_.clear();
+}
+
+const std::vector<GeoLocationData>& History::entries() const {
+    return entries_;
+}
