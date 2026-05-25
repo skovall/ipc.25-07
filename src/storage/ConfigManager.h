@@ -3,12 +3,10 @@
 
 #include <iostream> 
 #include <string>   
-#include <fstream>  // Для чтения и записи файлов
+#include <fstream> 
 #include "nlohmann/json.hpp" 
 
 using json = nlohmann::json;
-
-
 
 class ConfigManager {
 public:
@@ -42,7 +40,7 @@ public:
                 return defaultValue;
             }
         }
-        return defaultValue; // Если ключа нет, тоже возвращает значение по умолчанию
+        return defaultValue; // Если ключа нет - возвращает значение по умолчанию
     }
 
  
@@ -64,6 +62,3 @@ private:
 };
 
 #endif 
-
-
-
