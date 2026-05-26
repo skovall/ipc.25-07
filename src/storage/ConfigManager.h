@@ -1,64 +1,62 @@
+// src/ConfigManager.h
 #ifndef CONFIG_MANAGER_H
 #define CONFIG_MANAGER_H
 
-#include <iostream> 
-#include <string>   
-#include <fstream> 
-#include "nlohmann/json.hpp" 
+#include <iostream>
+#include <string>
+#include <fstream>
+#include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 
+
 class ConfigManager {
 public:
-        // ФУНКЦИЯ: Вызывается при создании объекта. Принимает путь к файлу настроек.
+    // ФУНКЦИЯ: Вызывается при создании объекта. Принимает путь к файлу настроек.
+    // Автоматически загружает настройки из файла, либо создаёт файл с дефолтами.
     ConfigManager(const std::string& configFilePath);
 
-        // ФУНКЦИЯ: Загружает настройки из файла.
+    // ФУНКЦИЯ: Загружает настройки из файла.
+    // Если файл не найден или повреждён — создаёт файл с настройками по умолчанию.
     bool loadConfig();
 
-        // ФУНКЦИЯ: Сохраняет текущие настройки в файл. 
+    // ФУНКЦИЯ: Сохраняет текущие настройки в файл.
     bool saveConfig() const;
 
-        // ФУНКЦИЯ: Сброс настроек.
+    // ФУНКЦИЯ: Сбрасывает настройки до значений по умолчанию и сохраняет файл.
     void resetToDefaults();
 
-
-
-        // ФУНКЦИЯ: Получает значение по ключу. (принимает разные типы значений)
+    // ФУНКЦИЯ: Получает значение по ключу с поддержкой разных типов.
+    // Если ключ не найден или тип не совпадает — возвращает defaultValue.
     template <typename T>
     T getValue(const std::string& key, const T& defaultValue) const {
-            
-        //Проверка: существует ли такой ключ
         if (configData.count(key)) {
             try {
                 return configData.at(key).get<T>();
             }
-
-            // Если тип не совпал, ловим ошибку
             catch (const json::type_error& e) {
-                std::cerr << "Ошибка типа для ключа '" << key << "' в конфигурации: " << e.what() << std::endl;
+                std::cerr << "Ошибка типа для ключа '" << key << "': " << e.what() << std::endl;
                 return defaultValue;
             }
         }
-        return defaultValue; // Если ключа нет - возвращает значение по умолчанию
+        return defaultValue;
     }
 
- 
-        // ФУНКЦИЯ: Записывает новое значение для настройки
+    // ФУНКЦИЯ: Записывает новое значение для указанного ключа.
     template <typename T>
     void setValue(const std::string& key, const T& value) {
         configData[key] = value;
     }
 
-        // ФУНКЦИЯ: Выводит текущие настройки на экран (полезно для поиска ошибок)
+    // ФУНКЦИЯ: Выводит текущие настройки на экран.
     void displayConfig(std::ostream& os = std::cout) const;
 
 private:
-
     std::string filePath;  // Путь к файлу настроек
-    json configData;       // Объект JSON, где в памяти хранятся все наши настройки
+    json configData;       // JSON-объект с текущими настройками в памяти
 
-    void setDefaults();   // ФУНКЦИЯ: Настройки по умолчанию
+    // ФУНКЦИЯ: Вызывается при первом запуске или при повреждении файла.
+    void setDefaults();
 };
 
-#endif 
+#endif
