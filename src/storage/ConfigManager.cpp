@@ -8,8 +8,8 @@
 // ФУНКЦИЯ: Конструктор класса ConfigManager
 ConfigManager::ConfigManager(const std::string& configFilePath)
     : filePath(configFilePath) {
-    setDefaults();  // Сначала грузим дефолты, чтобы объект всегда был в валидном состоянии
-    loadConfig();   // Затем пытаемся загрузить реальный файл (перезапишет дефолты если файл есть)
+    setDefaults();  
+    loadConfig();   // пытаемся загрузить реальный файл (перезапишет дефолты если файл есть)
 }
 
 
