@@ -31,8 +31,8 @@
 ## Скриншоты
 
 <div align="center">
-<img width="432" height="531" alt="image" src="https://github.com/user-attachments/assets/604d2c09-1f66-4a31-b439-98ee1f07d046" />
 <img width="300" height="370" alt="image" src="https://github.com/user-attachments/assets/99364d61-a15b-46b5-82f2-318ed9bc701e" />
+<img width="300" height="370" alt="image" src="https://github.com/user-attachments/assets/604d2c09-1f66-4a31-b439-98ee1f07d046" />
 </div>
 
 *Картинка 3: История запросов с сохраненными IP-адресами и их геоданными*
