@@ -2,7 +2,7 @@
 <img width="250" height="250" alt="IMG_3121" src="https://github.com/user-attachments/assets/0c884d35-29f2-4558-a613-458550cb346e">
 </div>
 
-## 🛠️ ICU - IP Coordiinates Utility
+## 🛠️ ICU - IP Coordinates Utility
 
 Инструмент для определения геолокации IP-адресов с использованием API ip-api.com. Поддерживает IPv4 и IPv6 адреса, сохраняет историю запросов и предоставляет информацию о провайдере, типе подключения и географических координатах.
 
