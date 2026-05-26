@@ -9,16 +9,18 @@ public:
     HttpRequest();
     ~HttpRequest();
 
+    // Запрещаем копирование (RAII-объект)
     HttpRequest(const HttpRequest&) = delete;
     HttpRequest& operator=(const HttpRequest&) = delete;
 
+    // Выполнить GET-запрос, вернуть тело ответа (бросает исключение при ошибке)
     std::string get(const std::string& url);
 
     void setVerbose(bool verbose);
-    void setTimeout(long seconds); 
+    void setTimeout(long seconds); // таймаут в секундах
     void setUserAgent(const std::string& user_agent);
 
-    long getLastHttpCode() const; 
+    long getLastHttpCode() const; // получить HTTP-статус последнего запроса
 
 private:
     static size_t writeCallback(void* contents, size_t size, size_t nmemb, void* userp);
