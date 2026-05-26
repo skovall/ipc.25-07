@@ -34,6 +34,7 @@ HttpRequest::HttpRequest()
     curl_easy_setopt(curl_handle_, CURLOPT_FOLLOWLOCATION, 1L);
     
 #ifdef _WIN32
+    // Используем системное хранилище сертификатов Windows
     curl_easy_setopt(curl_handle_, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
     curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYPEER, 1L);
     curl_easy_setopt(curl_handle_, CURLOPT_SSL_VERIFYHOST, 2L);
