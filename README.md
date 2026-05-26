@@ -4,21 +4,7 @@
 
 ## 🛠️ ICU - IP Coordiinates Utility
 
-ICU  is an external component (microservice) for automatic IP geolocation. It is designed as an independent service that can be easily integrated into any web application, CRM system, or analytics platform. The component returns structured location data: country, region, city, coordinates, and timezone.
-
-The project solves the problem of quickly and reliably obtaining geodata without the need to embed complex logic into the main application. It supports working with local databases (MaxMind) and external APIs, providing flexibility and compliance with privacy requirements.
-
-## ✨ Features
-
-- Location detection by IP (country, city, coordinates, timezone)
-- Proxy headers support (X-Forwarded-For, X-Real-IP)
-- Flexible data sources: local GeoLite2 database or external APIs
-- Result caching to reduce load
-- REST API with JSON response
-- Easy integration with applications in any language
-
-
----
+Инструмент для определения геолокации IP-адресов с использованием публичного API ip-api.com. Поддерживает IPv4 и IPv6 адреса, сохраняет историю запросов и предоставляет удобный терминальный интерфейс.
 
 *Дата начала разработки: февраль, 2026*
 
@@ -29,3 +15,79 @@ The project solves the problem of quickly and reliably obtaining geodata without
 Матюнина Юлия  
 Пивоварчук Дарья  
 Морозов Никита
+
+# IP Geolocation Tool
+
+Инструмент для определения геолокации IP-адресов с использованием API ip-api.com. Поддерживает IPv4 и IPv6 адреса, сохраняет историю запросов и предоставляет информацию о провайдере, типе подключения и географических координатах.
+
+## Возможности
+
+- Определение геолокации по IP-адресу (страна, город, регион, координаты)
+- Определение вашего публичного IP-адреса
+- Поддержка IPv4 и IPv6
+- Сохранение истории запросов (до 100 последних записей)
+- Отображение информации о провайдере (ISP, организация, AS)
+- Определение типа подключения (мобильное, прокси/VPN, хостинг)
+- Цветной вывод в терминал
+- Сохранение конфигурации в JSON файл
+- Юнит-тесты с использованием Google Test
+
+## Скриншоты
+
+*Картинка 1: Главное меню программы с выбором действий (Lookup IP, My public IP, Show history, Show config, Exit)*
+
+*Картинка 2: Результат определения геолокации IP-адреса 8.8.8.8 с отображением страны, города, координат, провайдера и другой информации*
+
+*Картинка 3: История запросов с сохраненными IP-адресами и их геоданными*
+
+## Требования для установки
+
+### Необходимое ПО
+
+- CMake 3.15 или выше
+- C++17 совместимый компилятор
+- Интернет-соединение (для загрузки зависимостей и API запросов)
+
+### Зависимости
+
+Все зависимости загружаются автоматически через CMake FetchContent:
+
+- libcurl (для HTTP запросов)
+- nlohmann/json (для работы с JSON)
+- Google Test (для юнит-тестов, опционально)
+
+### Поддерживаемые платформы
+
+- Windows 10/11 (VS 2022/2026)
+
+## Установка и сборка
+
+### Windows (Visual Studio)
+
+```bash
+cd {путь к ipc.25-07}
+mkdir build
+cd build
+cmake .. -DBUILD_TESTS=OFF
+# (для тестов) cmake .. -DBUILD_TESTS=ON
+cmake --build . --config Release
+```
+
+### Запуск основной программы
+
+```bash
+.\src\Release\ipgeo.exe
+```
+### Запуск тестов
+
+```bash
+.\tests\Release\ipgeo_tests.exe
+```
+
+## Главное меню
+
+1. Lookup IP      - Поиск геолокации по IP-адресу
+2. My public IP   - Определение вашего публичного IP
+3. Show history   - Просмотр истории запросов
+4. Show config    - Просмотр текущей конфигурации
+5. Exit           - Выход из программы
