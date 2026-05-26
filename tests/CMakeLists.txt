@@ -57,7 +57,7 @@ if(WIN32)
     # Копируем curl.dll в папку с тестами
     if(CURL_DLL_NAME AND curl_SOURCE_DIR)
         add_custom_command(TARGET ipgeo_tests POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_dependent
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
                 "${curl_SOURCE_DIR}/bin/${CURL_DLL_NAME}"
                 $<TARGET_FILE_DIR:ipgeo_tests>
             COMMENT "Copying ${CURL_DLL_NAME} to tests directory"
