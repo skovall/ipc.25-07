@@ -3,6 +3,10 @@
 #include <nlohmann/json.hpp>
 #include <iostream>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 using json = nlohmann::json;
 
 GeoLocator::GeoLocator(HttpRequest& http_client)
@@ -12,7 +16,14 @@ GeoLocator::GeoLocator(HttpRequest& http_client)
 }
 
 std::string GeoLocator::buildApiUrl(const std::string& ip_address) const {
-    std::string url = "http://ip-api.com/json/" + ip_address;
+    std::string url_ip = ip_address;
+    
+    // Если это IPv6 адрес, обрамляем в квадратные скобки
+    if (ip_address.find(':') != std::string::npos) {
+        url_ip = "[" + ip_address + "]";
+    }
+    
+    std::string url = "http://ip-api.com/json/" + url_ip;
     url += "?fields=status,message,country,countryCode,regionName,city,";
     url += "zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query";
     return url;
@@ -106,7 +117,7 @@ GeoLocationData GeoLocator::parseApiResponse(const std::string& json_string,
 
 std::string GeoLocator::getMyPublicIp() {
     try {
-        std::string url = "https://api.ipify.org";
+        std::string url = "http://api.ipify.org";  // Используем http вместо https
         std::string my_ip = m_httpClient.get(url);
         
         while (!my_ip.empty() && (my_ip.back() == '\n' || my_ip.back() == '\r')) {
