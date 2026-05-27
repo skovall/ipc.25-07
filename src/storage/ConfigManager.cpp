@@ -34,13 +34,7 @@ void ConfigManager::setDefaults() {
 // ФУНКЦИЯ: Загрузка настроек из файла
 bool ConfigManager::loadConfig() {
     std::ifstream file(filePath);
-
     if (!file.is_open()) {
-        // Файл не найден — первый запуск, сохраняем дефолты автоматически
-        std::cerr << TerminalDisplay::BRIGHT_MAGENTA
-                  << "Файл настроек '" << filePath << "' не найден. "
-                  << "Создаём файл с настройками по умолчанию."
-                  << TerminalDisplay::RESET << std::endl;
         saveConfig(); // <-- автосохранение при первом запуске
         return false;
     }
@@ -48,9 +42,6 @@ bool ConfigManager::loadConfig() {
     // Проверяем что файл не пустой
     file.seekg(0, std::ios::end);
     if (file.tellg() == 0) {
-        std::cerr << TerminalDisplay::RED
-                  << "Ошибка: файл настроек пуст. Используем значения по умолчанию."
-                  << TerminalDisplay::RESET << std::endl;
         setDefaults();
         saveConfig(); // Перезаписываем пустой файл дефолтами
         return false;
