@@ -76,16 +76,14 @@ int main() {
                     continue;
                 }
 
-                GeoLocationData data =
-                    locator.getDataForIp(ip);
+                GeoLocationData data = locator.getDataForIp(ip);
                 data.display();
                 history.addEntry(data);
                 history.save();
             }
 
             else if (choice == 2) {
-                std::string my_ip =
-                    locator.getMyPublicIp();
+                std::string my_ip = locator.getMyPublicIp();
 
                 if (my_ip.empty()) {
                     std::cout << BRIGHT_RED;
