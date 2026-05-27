@@ -10,7 +10,7 @@ add_library(ipgeo_lib STATIC
     utils/Utils.cpp
 )
 
-# Указываем пути к заголовкам
+# Указываем пути к заголовкам (включая существующий json.hpp)
 target_include_directories(ipgeo_lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/core
