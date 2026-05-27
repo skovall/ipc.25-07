@@ -18,7 +18,6 @@ GeoLocator::GeoLocator(HttpRequest& http_client)
 std::string GeoLocator::buildApiUrl(const std::string& ip_address) const {
     std::string url_ip = ip_address;
     
-    // Если это IPv6 адрес, обрамляем в квадратные скобки
     if (ip_address.find(':') != std::string::npos) {
         url_ip = "[" + ip_address + "]";
     }
