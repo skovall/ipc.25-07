@@ -45,29 +45,28 @@ if(WIN32)
         ws2_32
         crypt32
     )
-    
-    # Добавляем curl library для тестов
+
     if(CURL_LIBRARY)
-        target_link_libraries(ipgeo_tests
-            PRIVATE
-            ${CURL_LIBRARY}
-        )
+        target_link_libraries(ipgeo_tests PRIVATE ${CURL_LIBRARY})
     endif()
-    
-    # Копируем curl.dll в папку с тестами
+
     if(CURL_DLL_NAME AND curl_SOURCE_DIR)
-        add_custom_command(TARGET ipgeo_tests POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_dependent
-                "${curl_SOURCE_DIR}/bin/${CURL_DLL_NAME}"
-                $<TARGET_FILE_DIR:ipgeo_tests>
-            COMMENT "Copying ${CURL_DLL_NAME} to tests directory"
-        )
+        # Копируем DLL на этапе конфигурации cmake — надёжнее чем POST_BUILD с MSBuild
+        file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release")
+        file(COPY "${curl_SOURCE_DIR}/bin/${CURL_DLL_NAME}"
+            DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release")
+        file(COPY "${curl_SOURCE_DIR}/bin/${CURL_DLL_NAME}"
+            DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
     endif()
 endif()
 
-# Включаем тесты
+# Включаем тесты — WORKING_DIRECTORY указывает папку где лежит exe и DLL
+# PRE_TEST откладывает обнаружение тестов до запуска, а не сборки
 include(GoogleTest)
-gtest_discover_tests(ipgeo_tests)
+gtest_discover_tests(ipgeo_tests
+    WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release"
+    DISCOVERY_MODE PRE_TEST
+)
 
 # Добавляем флаг для ожидания ввода на Windows
 if(WIN32)
