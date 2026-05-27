@@ -57,7 +57,7 @@
 
 ## Установка и сборка
 
-### Windows (Visual Studio)
+### Windows (PowerShell)
 
 ```bash
 cd {путь к ipc.25-07}
