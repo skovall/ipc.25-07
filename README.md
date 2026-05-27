@@ -71,12 +71,12 @@ cmake --build . --config Release
 ### Запуск основной программы
 
 ```bash
-.\src\Release\ipgeo.exe
+.\bin\Release\ipgeo.exe
 ```
 ### Запуск тестов
 
 ```bash
-.\tests\Release\ipgeo_tests.exe
+.\bin\Release\ipgeo_tests.exe
 ```
 
 ## Главное меню
