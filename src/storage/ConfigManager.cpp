@@ -51,9 +51,6 @@ bool ConfigManager::loadConfig() {
 
     try {
         file >> configData; // Считываем весь JSON из файла в configData
-        std::cout << TerminalDisplay::BRIGHT_GREEN
-                  << "Настройки загружены из '" << filePath << "'."
-                  << TerminalDisplay::RESET << std::endl;
         return true;
     }
     catch (const json::parse_error& e) {
@@ -86,9 +83,6 @@ bool ConfigManager::saveConfig() const {
     try {
         // Записываем JSON в файл с отступами (4 пробела)
         file << std::setw(4) << configData << std::endl;
-        std::cout << TerminalDisplay::BRIGHT_GREEN
-                  << "Настройки сохранены в '" << filePath << "'."
-                  << TerminalDisplay::RESET << std::endl;
         return true;
     }
     catch (const std::exception& e) {
