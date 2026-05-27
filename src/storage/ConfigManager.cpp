@@ -80,9 +80,6 @@ bool ConfigManager::loadConfig() {
 bool ConfigManager::saveConfig() const {
     std::ofstream file(filePath);
     if (!file.is_open()) {
-        std::cerr << TerminalDisplay::RED
-                  << "Ошибка: Не удалось открыть файл '" << filePath << "' для сохранения."
-                  << TerminalDisplay::RESET << std::endl;
         return false;
     }
 
